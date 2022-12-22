@@ -1,0 +1,48 @@
+.btn button{
+ padding: 10px;
+ width: 120px;
+ height: 40px;
+ margin: 10px;
+ background: aquamarine;
+ border: 1px solid grey;
+ border-radius: 5px;
+ }
+
+.btn button:hover{
+    background: yellow;
+    border: 1px solid white; 
+    box-shadow: 1px 1px 20px grey;
+    cursor: pointer;
+    
+}
+
+.wrap{ display: flex; 
+    justify-Content:end; 
+    margin-Right:15px; margin-Top:5px}
+
+    .product_div{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .product_card{
+        border: 1px solid grey;
+        margin-left: none;
+        max-width: 250px;
+        width: 250px;
+    }
+     .product_card1{
+        margin: 5px;
+        max-width: 250px;
+        width: 250px;
+    }
+
+    .product_card:hover{
+        box-shadow: 1px 1px 20px grey;
+    }
+    .image img{
+        width: 150px;
+        height: 150px;
+        margin: 25px;
+    }
