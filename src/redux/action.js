@@ -1,14 +1,11 @@
-import { addtocart, removecart, clearcart} from "./constant"
+import { addtocart, removecart, clearcart,} from "./constant"
 
 
 export const AddToCart = (dat) => {
-   // console.log("add tocart", dat)
-// for constant
-      return {
+ return {
         type: addtocart,
         data: dat
     }
-
     // return {  // for string defined
     //     type: "ADD_TO_CART",
     //     data: dat
@@ -27,4 +24,5 @@ export const clearAll = (dat) => {
         type: clearcart,
         data: dat
     }
-   }
+}
+   

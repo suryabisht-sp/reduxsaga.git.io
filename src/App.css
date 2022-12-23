@@ -17,12 +17,16 @@
 .header{
   background-color: aquamarine;
   height: 50px;
-}
+   }
 
+   .header h1{
+    float: left;
+    margin:5px;
+   }
 .cart_div{
   display: flex;
   justify-content: end;
-  position: relative;
+  
 }
 .cart_div img{
   width: 40px;

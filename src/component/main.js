@@ -1,53 +1,71 @@
 import { AddToCart, clearAll, removeFromCart } from "../redux/action"
 import { useDispatch, useSelector } from 'react-redux';
-import { product } from "../redux/product Action";
+import { product,searchData } from "../redux/product Action";
 import "./main.css"
-
+import React, { useState } from "react";
 
 function Main() {
-const data = useSelector((state)=>state.productNewReducer)
-//console.log("data", data)
-  const prod = {
-      name: "Imobile",
-      id:1,
-    price: "10000"
-  }
+  const data = useSelector((state) => state.productNewReducer)
+  const [inData, setInData] = useState("");
+  const [sort, setSort] = useState("");
   const dispatch = useDispatch();
-console.log("DATA", data)
+  
+  const handleListing = () => {
+    if (sort) {
+      return dispatch(searchData(sort))
+    }
+    dispatch(product())
+  }
+  
+  React.useEffect(() => {
+    handleListing()
+  }, [sort])
+  
+  const handleChange = (e) => {
+    setInData(e.target.value)
+  }
+
+  const handleSort = (e) => {
+    setSort(e.target.value)
+  }
+
   return (
-    <div className="App">
-      
-      <div className="wrap" >
-      <div className="btn">
-          <button onClick={() => { dispatch(AddToCart(prod)) }} >Add to Cart</button>
-      </div>
-      <div className="btn">
-      <button onClick={() => { dispatch(removeFromCart(prod.name)) }} >Del from cart</button>
-      </div>
-      <div className="btn">
-      <button onClick={() => { dispatch(clearAll(prod)) }} >Clear Cart</button>
-      </div>
-      <div className="btn">
-        <button onClick={()=>{dispatch(product())}} >Get Product List</button>
-        </div>
+    <div>
+      <div className="input_search">
+        <input type="text" placeholder="search here.." value={inData} onChange={(e) => { handleChange(e) }} />
+        <select onChange={(e) => { handleSort(e) }} >
+          <option value={""}>Sort By</option>
+          <option disabled>ID</option>
+          <option value={"asc"} >Ascending Order</option>
+          <option value={"desc"}>Descending Order</option>
+        </select>
       </div>
       <div className="product_div" >
-        {data && data.map((item) => {
+        {data && data.filter(val => {
+          if (inData === "") { return val }
+          else if (val.title.toLowerCase().includes(inData.toLowerCase())) {
+            return val
+          }
+        }).map((item) => {
           return (
             <div className="product_card" key={item.id}>
               <div className="product_card1" >
-              <div className="image">
-                <img src={item.image} />
+                <div className="image">
+                  <img src={item.image} alt={item.title} />
+                </div>
+                <div className="card_details">
+                  <div className="product_title">{item?.title.substring(0, 20)}...</div>
+                  <div>Product ID: <span className="produ">{item?.id}</span></div>
+                  <div>Price: <span className="produ">${item?.price}</span></div>
+                  <div>Category: <span className="produ">{item.category}</span></div>
+                  <div className="btn">
+                    <button onClick={() => { dispatch(AddToCart(item)) }} >Add to Cart</button>
+                  </div>
+                </div>
               </div>
-              <div>
-              <div>{item?.title.substring(0, 28)}...</div>
-              <div>Price: ${item?.price}</div>
-              <div>Category: {item.category}</div>
-    </div>
-</div>
-</div>
+            </div>
           )
-})}
+        })}
       </div>
     </div>
   );
