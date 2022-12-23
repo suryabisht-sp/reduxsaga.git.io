@@ -16,7 +16,6 @@ const data = useSelector((state)=>state.productNewReducer)
 console.log("DATA", data)
   return (
     <div className="App">
-      
       <div className="wrap" >
       <div className="btn">
           <button onClick={() => { dispatch(AddToCart(prod)) }} >Add to Cart</button>
